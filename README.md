@@ -1,4 +1,5 @@
 # Azteco Bitcoin API Unity Package
+
 This Unity package is a simple framework to allow you to make Azteco API calls, and store the data returned. 
 
 ## azteco_store classes
@@ -106,3 +107,6 @@ If a request to the server is invalid, the API will return a failure response. A
 - The "NULL" values returned in *Verify voucher status* are returned **as Strings, not null**. 
 - unique_id, voucher_code and reference_code must be stored as **Strings**.
 - when calculating bitcoin amounts, it is advised to calculate the values **as decimals, not floats,** as floats are not accurate when calcuating small decimal values. 
+
+
+© 2021, Azteco Holdings USA Inc. All rights reserved
