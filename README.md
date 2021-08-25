@@ -1,28 +1,28 @@
-# Azteco Bitcoin API Unity package
-This unity package is a simple framework to allow you to make Azteco API calls, and store the data returned. 
+# Azteco Bitcoin API Unity Package
+This Unity package is a simple framework to allow you to make Azteco API calls, and store the data returned. 
 
 ## azteco_store classes
 Inside the api_return_classes folder are a set of serialized classes that are instantiated and populated when its api command is called. **do not modify these files**. If their structure and variable names change, the data will not be populated correctly. 
 
 ## azteco_api.cs
-azteco_api.cs contains methods to run all possible api calls, as well as storing your api key and the base url of the api.
+`azteco_api.cs`  contains methods to run all possible api calls, as well as storing your api key and the base url of the api.
 To make an api call, simply call the public method that relates to the call you wish to make. For the methods:
  - api_get_price
  - api_get_balance
  - api_stage_order
  - api_stage_lightning_order
 
-The default currency is "USD". You can add a variable to add any currency supported by [fixer.io](https://fixer.io/).
+the default currency is "USD". You must pass a three letter currency code supported by [fixer.io](https://fixer.io/).
 
 ## Process_and_format
 The process and format classes are used to initiate the api call, and format the json that is returned. **it is advised to not modify these unless necessary**. Modifying these methods is likely to break the methods they are used in. 
 
 
-## why?
+## Why Integrate Bitcoin in Your Project?
 
-You can read more about integrating bitcoin into gaming and its potential [Here](https://docs.google.com/presentation/d/1u5sgRh3uy5l-4slkelrJf392f83tUFSAwSh3lXH1IiQ/edit#slide=id.p).
-# how to run tests with an API key 
-The only prerequisite you must fulfil before being able to run tests using an API key is to set the *api_key* string in the *azteco_api* class. 
+Monetising your game or application can act as a total replacement for advertising, and with Bitcoin Lightning, and the Azteco API, is trivially simple to impliment. Read more about integrating bitcoin into gaming and its extraordinary potential [here](https://docs.google.com/presentation/d/1u5sgRh3uy5l-4slkelrJf392f83tUFSAwSh3lXH1IiQ/edit#slide=id.p).
+# How to Run Tests With an API Key 
+The only prerequisite you must fulfil to run tests using an API key is to set the *api_key* string in the `azteco_api.cs` class. 
 
 To make an API call, run one of the following scripts and pass the correct data into the method.
 |Method to Run| Variables Required |
@@ -39,8 +39,8 @@ run_api_finalize_lightning_order| order_id *(int)* |
  
  The data is stored in serialized classes contained within the script.
 
-# how to run tests without an API key
-To run tests with this package without an API key, you can use the methods in azteco_api_tests. These methods are coroutines, that run after a 3 second delay, to mimic the delay when using the actual api, and they return the same data that a real api call would return. 
+# How to Run Tests Without an API Key
+To run tests with this package without an API key, you can use the methods in `azteco_api_tests.cs`. These methods are coroutines, that run after a 3 second delay, to mimic the delay when using the actual api, and they return the same data that a real api call would return. 
 
 | Storage Class | Data |
 |--|--|
@@ -52,7 +52,7 @@ To run tests with this package without an API key, you can use the methods in az
 |azteco_get_topup_address_store| status = "success" <br /> address = "bc1qjlzm9n4zxel8ykluyylqnxq72ajpjuyaj78p6w"|
 
 ### Get statement
-Get statement returns an array of classes. The first entry in the array contains the success status, total bitcoin sold, totalsales price as well as the total comission earned. The rest of the entries will be information about every voucher you have sold.  below is an example of the first entry in the array, as well as 3 example voucher statements. 
+Get statement returns an array of classes. The first entry in the array contains the success status, total bitcoin sold, total sales as well as the total comission earned. The rest of the entries will be information about every voucher you have sold. below is an example of the first entry in the array, as well as 3 example voucher statements. 
 | entry # |  data|
 |--|--|
 | data in array[0] | status = "success" <br /> bitcoin_total = 2.49383839 <br /> sales_total = 204483.49 <br /> comission_total = 7849.34|
@@ -68,7 +68,7 @@ Verify voucher status can return one of four responses, shown below.
 | if expired | status = "success" <br />  genuine = "GENUINE-EXPIRED" <br />  redeem_status = 2 <br />  reddem_date = "NULL" <br />  sale_date = 1570794913 |
 | if bad reference code | status = "success" <br /> genuine = "BAD_REFERENCE_CODE" <br /> redeem_status = "NULL" <br />  redeem_date = "NULL" <br />  sale_date = "NULL"|
 
-### API Failure Responses
+### API failure responses
 If a request to the server is invalid, the API will return a failure response. All posible failure responses are shown below. 
 #### stage order
 | Failure response | Data |
@@ -103,6 +103,6 @@ If a request to the server is invalid, the API will return a failure response. A
 
 ### Testing & Data specifics
 
-- On average, an API call takes 3 seconds. Make sure you **set a manual delay** when setting the data using a coroutine. 
-- The "NULL" values returned in *Verify voucher status* are returned **as strings, not null**. 
+- The "NULL" values returned in *Verify voucher status* are returned **as Strings, not null**. 
 - unique_id, voucher_code and reference_code must be stored as **Strings**.
+- when calculating bitcoin amounts, it is advised to calculate the values **as decimals, not floats,** as floats are not accurate when calcuating small decimal values. 
